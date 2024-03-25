@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    
+        <input type="text" name="task" id="task">
+        <button onclick="AgregarElemento(task.value)">agregar</button>
+    
+        <script src="script.js"></script>
+
+        <div name="listas" id="listas">
+            <ul id="lalista">
+                LA LISTA:
+                
+                
+            </ul>
+        </div>
+
+        <button onclick="TareaMasRapidaEnRealizarse(task.value)">Tarea Más Rápida en Realizarse</button>
+        <div id="fechaMasTemprana">
+<p id="fmt" name="fmt"></p>
+        </div>
+
+
+
+        <button onclick="BorrarToDo(task.value)">BorrarToDo</button>
+
+</body>
+</html>
