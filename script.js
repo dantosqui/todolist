@@ -5,6 +5,7 @@ var checkId =0
 var labels = []
 
 function AgregarElemento(taskDescription){
+    if(!YaExiste(taskDescription)){
     laLista=document.getElementById("lalista")
 
     const fechaDeHoy= new Date().toLocaleString("es-ES")
@@ -17,6 +18,7 @@ function AgregarElemento(taskDescription){
     })
     
         var task = document.getElementById("lalista").appendChild(document.createElement("li"))
+        task.id = `li_${checkId}`
         
         var checkbox = task.appendChild(document.createElement("input"))
         checkbox.type = "checkbox"
@@ -38,14 +40,31 @@ function AgregarElemento(taskDescription){
     
     
     
-    
+}
+}
+
+function YaExiste(nombre){
+    var i=0
+    existe=false
+    while (i<listaToDos.length && !existe){
+        
+        if(listaToDos[i]!=null){
+            existe=listaToDos[i].nombre===nombre
+        }
+        
+        i++
+    }
+    return existe
 }
 
 function TareaMasRapidaEnRealizarse(){
+    var text = document.getElementById("fmt")
+    text.innerHTML = ""
     var fechaRapida
     var nombreTarea
+    if(listaToDos.length > 0){
     for(var i = 0; i<listaToDos.length; i++){
-        if(document.getElementById(i).checked){
+        if(listaToDos[i] != null && document.getElementById(i).checked){
            if(fechaRapida == null || fechaRapida > listaToDos[i].fechaTachado){
             fechaRapida = listaToDos[i].fechaTachado
             nombreTarea = listaToDos[i].nombre
@@ -53,15 +72,51 @@ function TareaMasRapidaEnRealizarse(){
         }
     }
     
-    var text = document.getElementById("fmt")
-    text.innerHTML = ""
+    
+   if(fechaRapida != null){
     text.innerHTML = `La tarea "${nombreTarea}" fue la que mas rapido se realizó, el dia ${fechaRapida.toLocaleString("es-ES")}`
-
+   }else{
+    text.innerHTML = `No hay ninguna tarea tachada`
+   }
+    
+}else{
+    text.innerHTML = `No hay ninguna tarea`
+}
 }
 function BorrarTask(idCheck){
     
+    console.log(idCheck)
+    document.getElementById(`li_${idCheck}`).remove()
     delete listaToDos[idCheck]
+
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function Tachar(idCheck){
     listaToDos[idCheck].fechaTachado = new Date().toLocaleString("es-ES")

@@ -1,0 +1,7 @@
+body{
+    background-image: https://t4.ftcdn.net/jpg/04/61/47/03/360_F_461470323_6TMQSkCCs9XQoTtyer8VCsFypxwRiDGU.jpg;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
