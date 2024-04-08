@@ -11,20 +11,38 @@
 
 <body>
 
+
     <h1>Lista ToDo</h1> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx_lVdfZm0MmFf3VCGRmQFeCagmTKrIoqMkefFFz1yBA&s" alt="" height="50px">
+
 
     <div id="campo">
         <input type="text" name="task" id="task">
-        <button onclick="AgregarElemento(task.value)">agregar</button>
+        <input type="date" name="dateOfVencimiento" id="dateOfVencimiento">
+        <button onclick="AgregarElemento(task.value,dateOfVencimiento.value)">agregar</button>
 
         <script src="script.js"></script>
     </div>
+    <div id="campoBuscar">
+        <input type="text" name="fe" id="fe">
+        <button onclick="Buscar(fe.value)">Buscar por fecha de vencimiento</button>
+    </div>
+
+    <div id="campoAgregar">
+        <input type="text" name="nombre" id="nombreProyecto">
+        <input type="text" name="descripcion" id="descripcionProyecto">
+        <button onclick="AgregarProyecto(nombreProyecto.value, descripcionProyecto.value)">agregar proyecto</button>
+    </div>
+
+    <div class="dropdown">
+        <button onclick="MostrarProyectos()" class="dropbtn">Dropdown</button>
+        <div id="myDropdown" class="dropdown-content">
+          
+        </div>
+      </div>
     
     <div name="listas" id="listas">
         <ul id="lalista">
             LA LISTA:
-
-
         </ul>
     </div>
 
@@ -38,7 +56,7 @@
     </div>
 
 
-
+    <script src="script.js"></script>
 
 </body>
 
