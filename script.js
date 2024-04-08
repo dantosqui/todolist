@@ -10,11 +10,11 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
         return
     }
     if (!YaExiste(taskDescription)) {
+            
         
-        laLista = document.getElementById("lalista")
-
+        iD=document.getElementById("dD").value
         const fechaDeHoy = new Date().toLocaleString("es-ES")
-        listaToDos.push({
+        listaProyectos[nombreProyecto].todos.push({
             "nombre": taskDescription,
             "fecha": fechaDeHoy,
             "tachado": false,
@@ -22,7 +22,13 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
             "cross": null,
             "dateOfVencimiento" : dateOfVencimiento
         })
+        
+        // console.log(listaProyectos)
+        // listaToDosProyecto=(listaProyectos.find(i => i.nombre==nombreProyecto)).todos
 
+        
+        MostrarDesdeCero(nombreProyecto)
+        /*
         var task = document.getElementById("lalista").appendChild(document.createElement("li"))
         task.id = `li_${checkId}`
 
@@ -44,33 +50,44 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
         cross.setAttribute("onclick", `BorrarTask(${checkbox.id})`);
         checkId++
 
-
+        */
 
     }
 }
 //no se si funciona esto 
-function MostrarDesdeCero(){
+function MostrarDesdeCero(listaTasks){
+   
+    labels =[]
     checkId=0
-    var task = document.getElementById("lalista").appendChild(document.createElement("li"))
+
+    listaTasks.forEach(i => {
+        
+        var task = document.getElementById("listaActual").appendChild(document.createElement("li"))
         task.id = `li_${checkId}`
 
-        var checkbox = task.appendChild(document.createElement("input"))
+        //mas adelante: comentarios para que el codigo sea lejible
+        var checkbox = task.appendChild(document.createElement("input")) //se crea la checkbox y se le ponen los atributos
         checkbox.type = "checkbox"
         checkbox.id = checkId
-        checkbox.setAttribute("onclick", `Tachar(${checkbox.id})`);
+        checkbox.setAttribute("onclick", `Tachar(${checkbox.id})`); //funciones de la checkbox
         checkbox.setAttribute("onmouseover", `MostrarFecha(${checkbox.id})`);
         checkbox.setAttribute("onmouseout", `SacarFecha(${checkbox.id})`);
-        var label = task.appendChild(document.createElement("label"))
-        label.innerHTML = listaToDos[checkId].nombre
+
+
+        var label = task.appendChild(document.createElement("label")) //le creamos una label
+        label.innerHTML = i.nombre
         labels.push(label)
-        var cross = task.appendChild(document.createElement("button"))
+
+
+        var cross = task.appendChild(document.createElement("button")) //le ponemos el borrar
         cross.innerHTML = "x"
         cross.style.color = "red"
-        // cross.style.marginLeft = "100px"
-        // label.style.marginLeft = "100px"
-        listaToDos[checkId].cross = cross
+        i.cross = cross
         cross.setAttribute("onclick", `BorrarTask(${checkbox.id})`);
-        checkId++
+        
+        
+        checkId++ //cada task tiene un checkid, se reinicia cuando mostramos de nuevo
+    });
 
 }
 
@@ -151,7 +168,7 @@ function SacarFecha(idCheck) {
 }
 
 //NUEVO TP FUNCIONES A PARTIR DE ACA: 
-
+indexProyectos = 0
 function AgregarProyecto(nombre, descripcion) {
     
     
@@ -160,22 +177,28 @@ function AgregarProyecto(nombre, descripcion) {
         "descripcion": descripcion,
         "todos":listaToDos
     })
+    
     listaToDos=[]
-
-    MostrarProyectos(nombre)
+    MostrarDesdeCero(listaProyectos[indexProyectos].todos) //aca tiene que mandar la lista de todos
     
+    MostrarProyectos(nombre, indexProyectos)
     
+    indexProyectos++
 }
 
-function MostrarProyectos(nombre){
-    var nuevoDrop = document.createElement('a');
-    nuevoDrop.textContent = nombre
-    nuevoDrop.setAttribute('onchange')
+function MostrarProyectos(nombre,indexProyectos){
+    var nuevoDrop = document.getElementById("dD").appendChild(document.createElement('option'));
+    nuevoDrop.setAttribute('value', indexProyectos)
+    nuevoDrop.innerHTML = nombre
+    nuevoDrop.selected = true
+   // nuevoDrop.setAttribute('onchange', MostrarDesdeCero(nombre))
 }
 
 
 function Buscar(fe){
 
-
+   listasConLaFechaDeVencimientoCondicionada =  listToDosProyecto.map(function (x) {
+if(x.dateOfVencimiento == fe) return x
+    })
     
 }

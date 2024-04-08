@@ -12,43 +12,51 @@
 <body>
 
 
-    <h1>Lista ToDo</h1> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx_lVdfZm0MmFf3VCGRmQFeCagmTKrIoqMkefFFz1yBA&s" alt="" height="50px">
+    <h1>Lista ToDo</h1> <img
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx_lVdfZm0MmFf3VCGRmQFeCagmTKrIoqMkefFFz1yBA&s"
+        alt="" height="50px">
 
+    <div class="dropdown">
+        <h3>Seleccionar proyecto</h3>
+        <select id="dD" class="dropdown-content">
+            
+        </select>
+    </div>
 
     <div id="campo">
+        <h3>añadir una tarea</h3>
         <input type="text" name="task" id="task">
         <input type="date" name="dateOfVencimiento" id="dateOfVencimiento">
         <button onclick="AgregarElemento(task.value,dateOfVencimiento.value)">agregar</button>
 
         <script src="script.js"></script>
     </div>
+
     <div id="campoBuscar">
-        <input type="text" name="fe" id="fe">
+        <h3>Buscar tarea por fecha de vencimiento</h3>
+        <input type="date" name="fe" id="fe">
         <button onclick="Buscar(fe.value)">Buscar por fecha de vencimiento</button>
+        <h1 id="mensajeBuscar" hidden="true"></h1>
     </div>
 
     <div id="campoAgregar">
+        <h3>Agregar proyecto</h3>
         <input type="text" name="nombre" id="nombreProyecto">
         <input type="text" name="descripcion" id="descripcionProyecto">
         <button onclick="AgregarProyecto(nombreProyecto.value, descripcionProyecto.value)">agregar proyecto</button>
     </div>
 
-    <div class="dropdown">
-        <button onclick="MostrarProyectos()" class="dropbtn">Dropdown</button>
-        <div id="myDropdown" class="dropdown-content">
-          
-        </div>
-      </div>
-    
-    <div name="listas" id="listas">
-        <ul id="lalista">
-            LA LISTA:
+
+    <div  id="listas">
+        <ul id ="listaActual">
+
         </ul>
     </div>
 
-    
+
 
     <div id="tareamasrapida">
+
         <button onclick="TareaMasRapidaEnRealizarse(task.value)">Tarea Más Rápida en Realizarse</button>
         <div id="fechaMasTemprana">
             <p id="fmt" name="fmt"></p>
