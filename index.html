@@ -18,7 +18,7 @@
 
     <div class="dropdown">
         <h3>Seleccionar proyecto</h3>
-        <select id="dD" class="dropdown-content">
+        <select id="dD" class="dropdown-content" onchange='MostrarDesdeCero("nopuedomandarunalistaasiquemandoestestringlol:v")'>
             
         </select>
     </div>
@@ -48,6 +48,8 @@
 
 
     <div  id="listas">
+        <h2 id="proyectotitulo"><span>Proyecto</span> <span id="proyectonombretitulo"></span></h2>
+        <h4 id="descripcion"></h4>
         <ul id ="listaActual">
 
         </ul>
@@ -57,7 +59,7 @@
 
     <div id="tareamasrapida">
 
-        <button onclick="TareaMasRapidaEnRealizarse(task.value)">Tarea Más Rápida en Realizarse</button>
+        <button onclick="TareaMasRapidaEnRealizarse(dD.value)">Tarea Más Rápida en Realizarse</button>
         <div id="fechaMasTemprana">
             <p id="fmt" name="fmt"></p>
         </div>
