@@ -156,12 +156,12 @@ function BorrarTask(idCheck) {
 
 function Tachar(idCheck,list) {
     proy = list
-    proy.todos[idCheck].fechaTachado = new Date().toLocaleString("es-ES")
+    proy[idCheck].fechaTachado = new Date().toLocaleString("es-ES")
     if (document.getElementById(idCheck).checked) {
-        labels[idCheck].innerHTML = proy.todos[idCheck].nombre.strike() + ` - ${proy.todos[idCheck].fechaTachado}`
+        labels[idCheck].innerHTML = proy[idCheck].nombre.strike() + ` - ${proy[idCheck].fechaTachado}`
 
     } else {
-        labels[idCheck].innerHTML = proy.todos[idCheck].nombre + ` - ${proy.todos[idCheck].fecha}`
+        labels[idCheck].innerHTML = proy[idCheck].nombre + ` - ${proy[idCheck].fecha}`
     }
     
 }
