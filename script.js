@@ -20,7 +20,8 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
             "tachado": false,
             "fechaTachado": null,
             "cross": null,
-            "dateOfVencimiento" : dateOfVencimiento
+            "dateOfVencimiento" : dateOfVencimiento,
+            "checkbox":0
         })
         
         
@@ -28,7 +29,7 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
         
     }
 }
-//no se si funciona esto 
+
 function MostrarDesdeCero(listaTasks){ //hacer que muestre el nombre y descripcion del proyecto cuando se cambia pero no cuando se busca no se suerte con eso lol
    
     labels =[]
@@ -49,10 +50,11 @@ function MostrarDesdeCero(listaTasks){ //hacer que muestre el nombre y descripci
         var checkbox = task.appendChild(document.createElement("input")) //se crea la checkbox y se le ponen los atributos
         checkbox.type = "checkbox"
         checkbox.id = checkId
-        checkbox.setAttribute("onclick", `Tachar(${checkbox.id})`); //funciones de la checkbox
-        checkbox.setAttribute("onmouseover", `MostrarFecha(${checkbox.id})`);
-        checkbox.setAttribute("onmouseout", `SacarFecha(${checkbox.id})`);
-
+        i.checkbox = checkId
+        
+        checkbox.setAttribute("onclick", `Tachar(${i.checkbox},${listaTasks})`); //funciones de la checkbox
+        checkbox.setAttribute("onmouseover", `MostrarFecha(${i.checkbox},${listaTasks})`);
+        checkbox.setAttribute("onmouseout", `SacarFecha(${i.checkbox},${listaTasks})`);
 
         var label = task.appendChild(document.createElement("label")) //le creamos una label
         label.innerHTML = i.nombre
@@ -65,19 +67,19 @@ function MostrarDesdeCero(listaTasks){ //hacer que muestre el nombre y descripci
         i.cross = cross
         cross.setAttribute("onclick", `BorrarTask(${checkbox.id})`);
         
-        
         checkId++ //cada task tiene un checkid, se reinicia cuando mostramos de nuevo
     });
 
 }
 
 function YaExiste(nombre) {
+    proy = listaProyectos[document.getElementById("dD").value].todos
     var i = 0
     existe = false
-    while (i < listaToDos.length && !existe) {
+    while (i < proy.length && !existe) {
 
-        if (listaToDos[i] != null) {
-            existe = listaToDos[i].nombre === nombre
+        if (proy[i] != null) {
+            existe = proy[i].nombre === nombre
         }
 
         i++
@@ -89,26 +91,50 @@ function TareaMasRapidaEnRealizarse(idProyecto) { //actualizar esto
     console.log("asdfaf")
     var text = document.getElementById("fmt")
     text.innerHTML = ""
-    var fechaRapida
+    var fechaRapida = new Date()   
     var nombreTarea
     var proyecto
 
 
-    proyecto = listaProyectos[idProyecto].nombre
-    console.log("nombre proyecto: " + proyecto)
+    proyecto = listaProyectos[idProyecto]
+    console.log("nombre proyecto: " + proyecto.nombre)
     console.log("drfgvsg")
-    console.log(proyecto.todos[0].nombreTarea)
+    console.log("nombre tarea de proyect: " + proyecto.todos[0].nombre)
+    console.log("pqpqpqpppqpqqppq")
     if (proyecto.todos.length > 0) { //seguir en casa lo hago yo
         console.log("adaddaad")
         for (var i = 0; i < proyecto.todos.length; i++) {
+            // if (proyecto.todos[i] != null && document.getElementById(i).checked) {
+            //     // if (proyecto.todos[i].fecha == null || proyecto.todos[i].fecha > listaToDos[i].fechaTachado) {
+            //     //     fechaRapida = proyecto.todos[i].fechaTachado
+            //     //     nombreTarea = proyecto.todos[i].nombre
+            //     //     console.log("Fecha rapida: " + fechaRapida + nombreTarea)
+            //     // }
+            //     if(proyecto.todos[i].fechaTachado.toLocaleString("es-ES") < fechaRapida.toLocaleString("es-ES")){
+            //         fechaRapida = proyecto.todos[i].fechaTachado
+            //         nombreTarea = proyecto.todos[i].nombre
+            //         console.log("Fecha rapida: " + fechaRapida + nombreTarea)
+            //     }
+            // }
+
             if (proyecto.todos[i] != null && document.getElementById(i).checked) {
-                console.log("HOLA")
-                if (fechaRapida == null || fechaRapida > listaToDos[i].fechaTachado) {
-                    fechaRapida = proyecto.todos[i].fechaTachado
+                // if (proyecto.todos[i].fecha == null || proyecto.todos[i].fecha > listaToDos[i].fechaTachado) {
+                //     fechaRapida = proyecto.todos[i].fechaTachado
+                //     nombreTarea = proyecto.todos[i].nombre
+                //     console.log("Fecha rapida: " + fechaRapida + nombreTarea)
+                // }
+                console.log("cccccc")
+                console.log("fecha vencimiento " + proyecto.todos[i].dateOfVencimiento)
+                console.log("sdsdj")
+                console.log("fecha tachado " + proyecto.todos[i].fechaTachado)
+                if(proyecto.todos[i].dateOfVencimiento.toLocaleString("es-ES") - proyecto.todos[i].fechaTachado.toLocaleString("es-ES") < fechaRapida.toLocaleString("es-ES")){
+                    fechaRapida = proyecto.todos[i].dateOfVencimiento.toLocaleString("es-ES") - proyecto.todos[i].fechaTachado.toLocaleString("es-ES")
                     nombreTarea = proyecto.todos[i].nombre
+                    console.log("Fecha rapida: " + fechaRapida + nombreTarea)
                 }
             }
         }
+        console.log(fechaRapida)
 
         if (fechaRapida != null) {
             text.innerHTML = `La tarea "${nombreTarea}" fue la que mas rapido se realizó, el dia ${fechaRapida.toLocaleString("es-ES")}`
@@ -122,38 +148,40 @@ function TareaMasRapidaEnRealizarse(idProyecto) { //actualizar esto
 }
 
 function BorrarTask(idCheck) {
-
+    proy = listlistaProyectos[document.getElementById("dD").value].todos
     console.log(idCheck)
     document.getElementById(`li_${idCheck}`).remove()
-    delete listaToDos[idCheck]
-
-
+    delete proy[idCheck]
 }
 
-function Tachar(idCheck) {
-    listaToDos[idCheck].fechaTachado = new Date().toLocaleString("es-ES")
+function Tachar(idCheck,list) {
+    proy = list
+    proy.todos[idCheck].fechaTachado = new Date().toLocaleString("es-ES")
     if (document.getElementById(idCheck).checked) {
-        labels[idCheck].innerHTML = listaToDos[idCheck].nombre.strike() + ` - ${listaToDos[idCheck].fechaTachado}`
+        labels[idCheck].innerHTML = proy.todos[idCheck].nombre.strike() + ` - ${proy.todos[idCheck].fechaTachado}`
 
     } else {
-        labels[idCheck].innerHTML = listaToDos[idCheck].nombre + ` - ${listaToDos[idCheck].fecha}`
+        labels[idCheck].innerHTML = proy.todos[idCheck].nombre + ` - ${proy.todos[idCheck].fecha}`
     }
+    
 }
 
-function MostrarFecha(idCheck) {
-    listaToDos[idCheck].cross.style.visibility = "hidden"
+function MostrarFecha(idCheck,list) {
+    proy = list
+    proy[idCheck].cross.style.visibility = "hidden"
     if (labels[idCheck].firstElementChild)
-        labels[idCheck].innerHTML += ` - ${listaToDos[idCheck].fechaTachado}`
+        labels[idCheck].innerHTML += ` - ${proy[idCheck].fechaTachado}`
     else
-        labels[idCheck].innerHTML += ` - ${listaToDos[idCheck].fecha}`
+        labels[idCheck].innerHTML += ` - ${proy[idCheck].fecha}`
 }
 
-function SacarFecha(idCheck) {
-    listaToDos[idCheck].cross.style.visibility = "visible"
+function SacarFecha(idCheck,list) {
+    proy = listaProyectos[document.getElementById("dD").value].todos
+    proy[idCheck].cross.style.visibility = "visible"
     if (labels[idCheck].firstElementChild)
-        labels[idCheck].innerHTML = listaToDos[idCheck].nombre.strike()
+        labels[idCheck].innerHTML = proy[idCheck].nombre.strike()
     else
-        labels[idCheck].innerHTML = listaToDos[idCheck].nombre
+        labels[idCheck].innerHTML = proy[idCheck].nombre
 }
 
 //NUEVO TP FUNCIONES A PARTIR DE ACA: 
@@ -184,12 +212,17 @@ function MostrarProyectos(nombre,indexProyectos){
 
 }
 
-
 function Buscar(fe){
-console.log(listaProyectos[document.getElementById("dD").value])
-   listasConLaFechaDeVencimientoCondicionada =  listaProyectos[document.getElementById("dD").value].todos.map(function (x) {
+
+   listasConLaFechaDeVencimientoCondicionada =  listaProyectos[document.getElementById("dD").value].todos.filter(function (x) {
 if(x.dateOfVencimiento == fe) return x
     })
+    console.log(listasConLaFechaDeVencimientoCondicionada)
     MostrarDesdeCero(listasConLaFechaDeVencimientoCondicionada)
     
 }
+function DesBuscar(){
+
+     MostrarDesdeCero(listaProyectos[document.getElementById("dD").value].todos)
+     
+ }
