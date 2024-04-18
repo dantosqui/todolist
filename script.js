@@ -26,7 +26,7 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
             "fecha": fechaDeHoy,
             "fechaTachado": null,
             "cross": null,
-            "tachado":true,
+            "tachado":false,
             "dateOfVencimiento" : dateOfVencimiento,
             "checkbox":0
         })
@@ -62,7 +62,7 @@ function MostrarDesdeCero(listaTasks){ //hacer que muestre el nombre y descripci
         checkbox.setAttribute("onclick", `Tachar(${i.checkbox},${JSON.stringify(i)},${JSON.stringify(listaProyectos[document.getElementById("dD").value].todos)})`);
         
         var label = task.appendChild(document.createElement("label")) //le creamos una label
-        label.innerHTML = i.nombre
+        label.innerHTML = i.nombre + " - Vencimiento: " + i.dateOfVencimiento
         labels.push(label)
 
 
@@ -72,7 +72,7 @@ function MostrarDesdeCero(listaTasks){ //hacer que muestre el nombre y descripci
         i.cross = cross
         cross.setAttribute("onclick", `BorrarTask(${checkbox.id},${JSON.stringify(i.nombre)},${JSON.stringify(i.dateOfVencimiento)})`);
         checkId++ //cada task tiene un checkid, se reinicia cuando mostramos de nuevo
-        
+        BuscarTachar(i.checkbox,JSON.stringify(i),JSON.stringify(listaProyectos[document.getElementById("dD").value].todos))
     });
 
 }
@@ -221,6 +221,20 @@ function BorrarTask(idCheck, nombreNow, fVNow) {
     document.getElementById(`li_${idCheck}`).remove()
     listaProyectos[document.getElementById("dD").value].todos = listaProyectos[document.getElementById("dD").value].todos.filter(x=>x.nombre!=nombreNow && x.dateOfVencimiento!=fVNow)
     console.log(listaProyectos[document.getElementById("dD").value].todos)
+}
+function BuscarTachar(idCheck){
+    proy = lista[idCheck]
+    if (proy.tachado) {
+        labels[idCheck].innerHTML = proy.nombre + ` - Vencimiento: ${proy.dateOfVencimiento} - Tachado: ${proy.fechaTachado}`
+        console.log(proy.tachado)
+        document.getElementById(idCheck).checked = true
+        console.log(proy.tachado)
+
+    } 
+    else {
+        labels[idCheck].innerHTML = proy.nombre + ` - Vencimiento: ${proy.dateOfVencimiento}`
+        document.getElementById(idCheck).checked = false
+    }   
 }
 
 function Tachar(idCheck) {
