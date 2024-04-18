@@ -12,9 +12,7 @@
 <body>
 
 
-    <h1>Lista ToDo</h1> <img
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx_lVdfZm0MmFf3VCGRmQFeCagmTKrIoqMkefFFz1yBA&s"
-        alt="" height="50px">
+    <h1>✅Lista ToDo✅</h1> 
 
     <div class="dropdown">
         <h3>Seleccionar proyecto</h3>
@@ -24,10 +22,11 @@
     </div>
 
     <div id="campo">
-        <h3>añadir una tarea</h3>
+        <h3>Añadir una tarea</h3>
         <input type="text" name="task" id="task">
+        <label>- Fecha de vencimiento: </label>
         <input type="date" name="dateOfVencimiento" id="dateOfVencimiento">
-        <button onclick="AgregarElemento(task.value,dateOfVencimiento.value)">agregar</button>
+        <button onclick="AgregarElemento(task.value,dateOfVencimiento.value)">+</button>
 
         <script src="script.js"></script>
     </div>
@@ -35,7 +34,9 @@
     <div id="campoBuscar">
         <h3>Buscar tarea por fecha de vencimiento</h3>
         <input type="date" name="fe" id="fe">
-        <button onclick="Buscar(fe.value)">Buscar por fecha de vencimiento</button>
+        <button class="justoestebotonno" onclick="DesBuscar()">QUITAR FILTRO</button>
+        <button onclick="Buscar(fe.value)">BUSCAR</button>
+        
         <h1 id="mensajeBuscar" hidden="true"></h1>
     </div>
 
@@ -43,7 +44,7 @@
         <h3>Agregar proyecto</h3>
         <input type="text" name="nombre" id="nombreProyecto">
         <input type="text" name="descripcion" id="descripcionProyecto">
-        <button onclick="AgregarProyecto(nombreProyecto.value, descripcionProyecto.value)">agregar proyecto</button>
+        <button onclick="AgregarProyecto(nombreProyecto.value, descripcionProyecto.value)">+</button>
     </div>
 
 
@@ -51,15 +52,15 @@
         <h2 id="proyectotitulo"><span>Proyecto</span> <span id="proyectonombretitulo"></span></h2>
         <h4 id="descripcion"></h4>
         <ul id ="listaActual">
-
+            Aun no ha creado ningun proyecto...
         </ul>
     </div>
 
 
 
     <div id="tareamasrapida">
-
-        <button onclick="TareaMasRapidaEnRealizarse(dD.value)">Tarea Más Rápida en Realizarse</button>
+        <h3>Tarea Más Rápida en Realizarse</h3>
+        <button onclick="TareaMasRapidaEnRealizarse(dD.value)">BUSCAR</button>
         <div id="fechaMasTemprana">
             <p id="fmt" name="fmt"></p>
         </div>
