@@ -43,12 +43,13 @@ function MostrarDesdeCero(listaTasks){ //hacer que muestre el nombre y descripci
     checkId=0
     console.log("typof: ", typeof listaTasks)
     lista=listaTasks
-    if (typeof listaTasks != "object"){
-        listaTasks=listaProyectos[document.getElementById("dD").value].todos
+    if (typeof lista != "object"){
+        console.log("wat", listaProyectos[document.getElementById("dD").value].todos)
+        lista=listaProyectos[document.getElementById("dD").value].todos
     }
     console.log("hola")
     document.getElementById("listaActual").innerHTML=""
-    listaTasks.forEach(i => {
+    lista.forEach(i => {
         
         var task = document.getElementById("listaActual").appendChild(document.createElement("li"))
         task.id = `li_${checkId}`
