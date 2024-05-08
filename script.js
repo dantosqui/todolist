@@ -5,6 +5,21 @@ var labels = []
 var tachados=[]
 
 function AgregarElemento(taskDescription,dateOfVencimiento) {
+    console.log(typeof dateOfVencimiento + " es date");
+    var fechaActual = new Date();
+    var dateVenc = new Date(Date.parse(dateOfVencimiento))
+    diaVenc = dateVenc.getDate();
+    mesVenc = dateVenc.getMonth() +1
+    anioVenc = dateVenc.getFullYear()
+
+    fechaActual = new Date()
+    diaVenc2 = fechaActual.getDate();
+    mesVenc2 = fechaActual.getMonth() +1
+    anioVenc2 = fechaActual.getFullYear()
+
+    console.log("FECHA ACTUAL: " + fechaActual)
+   
+  
     if(listaProyectos.length == 0){
         alert("Necesitas crear un proyecto para crear una tarea")
         return;
@@ -13,8 +28,14 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
         return;
     }//decime cuando pueda probar el codigo RIGHT HERE RIGHT NOW ok listo
     if(dateOfVencimiento == '' || taskDescription==''){
-        alert("Debe insertar una fecha de vencimiento y nombre")
+        //alert("Debe insertar una fecha de vencimiento y nombre")
+        console.log("tomado")
         return
+    }
+    if((anioVenc < anioVenc2) | (anioVenc == anioVenc2 && mesVenc < mesVenc2) | (anioVenc == anioVenc2 && mesVenc == mesVenc2 && diaVenc < diaVenc2)){
+        console.log("ENTRÓ")
+        alert("Ingrese una fecha que aún no haya pasado")
+        return;
     }
     if (!YaExiste(taskDescription)) {
             
@@ -271,6 +292,8 @@ function AgregarProyecto(nombre, descripcion) {
     MostrarProyectos(nombre, indexProyectos)
     
     indexProyectos++
+    var textoAviso = document.getElementById("textoAviso")
+    textoAviso.innerHTML = "Proyecto creado!!!1!1!1!";
 }
 
 function MostrarProyectos(nombre,indexProyectos){
