@@ -21,6 +21,16 @@
         </select>
     </div>
 
+    <div id="campoAgregar">
+        <h3>Agregar proyecto</h3>
+        <input type="text" name="nombre" id="nombreProyecto">
+        <input type="text" name="descripcion" id="descripcionProyecto">
+        <button onclick="AgregarProyecto(nombreProyecto.value, descripcionProyecto.value)">+</button>
+        <p id="textoAviso"></p>
+    </div>
+
+   
+
     <div id="campo">
         <h3>Añadir una tarea</h3>
         <input type="text" name="task" id="task">
@@ -29,6 +39,14 @@
         <button onclick="AgregarElemento(task.value,dateOfVencimiento.value)">+</button>
 
         <script src="script.js"></script>
+    </div>
+
+    <div  id="listas">
+        <h2 id="proyectotitulo"><span>Proyecto</span> <span id="proyectonombretitulo"></span></h2>
+        <h4 id="descripcion"></h4>
+        <ul id ="listaActual">
+            Aun no ha creado ningun proyecto...
+        </ul>
     </div>
 
     <div id="campoBuscar">
@@ -40,22 +58,10 @@
         <h1 id="mensajeBuscar" hidden="true"></h1>
     </div>
 
-    <div id="campoAgregar">
-        <h3>Agregar proyecto</h3>
-        <input type="text" name="nombre" id="nombreProyecto">
-        <input type="text" name="descripcion" id="descripcionProyecto">
-        <button onclick="AgregarProyecto(nombreProyecto.value, descripcionProyecto.value)">+</button>
-        <p id="textoAviso"></p>
-    </div>
 
 
-    <div  id="listas">
-        <h2 id="proyectotitulo"><span>Proyecto</span> <span id="proyectonombretitulo"></span></h2>
-        <h4 id="descripcion"></h4>
-        <ul id ="listaActual">
-            Aun no ha creado ningun proyecto...
-        </ul>
-    </div>
+
+ 
 
 
 

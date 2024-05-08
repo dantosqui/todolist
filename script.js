@@ -27,11 +27,11 @@ function AgregarElemento(taskDescription,dateOfVencimiento) {
         alert("Una tarea con el mismo nombre y fecha de vencimiento ya existe")
         return;
     }//decime cuando pueda probar el codigo RIGHT HERE RIGHT NOW ok listo
-    if(dateOfVencimiento == '' || taskDescription==''){
-        //alert("Debe insertar una fecha de vencimiento y nombre")
-        console.log("tomado")
-        return
-    }
+    // if(dateOfVencimiento == '' || taskDescription==''){
+    //     //alert("Debe insertar una fecha de vencimiento y nombre")
+    //     console.log("tomado")
+    //     return
+    // }
     if((anioVenc < anioVenc2) | (anioVenc == anioVenc2 && mesVenc < mesVenc2) | (anioVenc == anioVenc2 && mesVenc == mesVenc2 && diaVenc < diaVenc2)){
         console.log("ENTRÓ")
         alert("Ingrese una fecha que aún no haya pasado")
